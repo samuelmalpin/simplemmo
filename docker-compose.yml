@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  simplemmo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: angefou/simplemmo:latest
+    container_name: simplemmo-boss
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      DUMP_HTML_ON_FAILURE: ${DUMP_HTML_ON_FAILURE:-1}
+      HTML_SNAPSHOT_PATH: ${HTML_SNAPSHOT_PATH:-/tmp/world_bosses.html}
+      TELEGRAM_TEST_PING: ${TELEGRAM_TEST_PING:-0}
+    ports:
+      - "127.0.0.1:8000:8000"
+    healthcheck:
+      test: ["CMD-SHELL", "python - <<'PY'\nimport urllib.request\nurllib.request.urlopen('http://localhost:8000', timeout=5)\nPY"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
