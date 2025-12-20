@@ -1,43 +1,65 @@
-# simplemmo
+# SimpleMMO World Boss Tracker
 
-FastAPI service that scrapes the SimpleMMO world-boss page, renders a small dashboard, and can send Telegram alerts when a boss is close/active.
+Service FastAPI qui surveille la page des "World Boss" de SimpleMMO, affiche un tableau de bord et envoie des alertes Telegram lorsqu'un boss est proche ou actif.
 
-## Repo layout
-- [main.py](main.py) : scraping, background loop, Telegram alerts, HTML dashboard on `/`.
-- [requirements.txt](requirements.txt) : Python deps.
-- [Dockerfile](Dockerfile) : image build (uvicorn server).
-- [docker-compose.yml](docker-compose.yml) : local orchestration, env handling, healthcheck.
-- [.env.example](.env.example) : template to copy to `.env`.
-- (Optionally delete or cleanse `lancement-docker.txt` before pushing; it currently contains real-looking tokens.)
+## 📂 Structure du projet
 
-## Pré requis
-- Docker + Docker Compose
-- Une session SimpleMMO avec cookie pour la connexion et récup des stats des world-boss (`COOKIE`).
-- (Optional) Telegram bot token + chat id for notifications.
+- `main.py` : Logique principale (scraping, tâche de fond, alertes Telegram, dashboard web).
+- `requirements.txt` : Dépendances Python.
+- `Dockerfile` : Fichier de construction de l'image (serveur uvicorn).
+- `docker-compose.yml` : Orchestration locale, gestion des variables d'environnement et healthcheck.
+- `.env.example` : Modèle de fichier de configuration à copier en `.env`.
 
-## Configuration (.env)
-- Remplir `.env`:
-- `COOKIE` (obligatoire): SimpleMMO session cookie.
-- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` (optionel): Pour notiff telegram.
-- `LOG_LEVEL` (default INFO): logging level.
-- `DUMP_HTML_ON_FAILURE` (1/0): save HTML when parsing fails.
-- `HTML_SNAPSHOT_PATH`: where to dump snapshots.
-- `TELEGRAM_TEST_PING` (1/0): send a test ping every minute (debug).
+## 🛠️ Prérequis
 
-## Installation
--Récupérez votre cookie de session simplemmo:.
--sur simplemmo en étant connecté sur naviguateur > press f12 > Application > cookies > https://web.simple-mmo.com prenez les token des clé laravelsession et XSRF-TOKEN
--metez le sous la forme COOKIE="laravelsession=<TOKEN>; XSRF-TOKEN=<TOKEN>"
--Ensuite si vous voulez les notifications par telegram chercher le bot "BOTFATHER" sur telegram puis créer votre bot donner lui un nom et un pseudo, envoyé un message a votre bot puis dans votre naviguateur mettez cette url avec le token de votre bot https://api.telegram.org/bot<token_bot>/getUpdates
-puis dans le JSON repérer ça 
-"chat": {
-  "id": 123456789
-}
-nottez l'ID c'est l'ID du chat.
-Remplissez maintenant les 3 variables d'environnement dans [.env.example](.env.example)
+- **Docker** et **Docker Compose** installés.
+- Un compte **SimpleMMO** actif.
+- (Optionnel) Un bot **Telegram** pour les notifications.
+
+## ⚙️ Configuration
+
+1. Copiez le fichier d'exemple :
+   ```bash
+   cp .env.example .env
+   ```
+2. Remplissez le fichier `.env` avec les informations suivantes :
+
+| Variable | Description | Requis |
+| :--- | :--- | :--- |
+| `COOKIE` | Cookie de session SimpleMMO (voir instructions ci-dessous). | **Oui** |
+| `TELEGRAM_BOT_TOKEN` | Token de votre bot Telegram. | Non |
+| `TELEGRAM_CHAT_ID` | ID du chat pour recevoir les alertes. | Non |
+| `LOG_LEVEL` | Niveau de log (défaut : `INFO`). | Non |
+| `DUMP_HTML_ON_FAILURE` | Sauvegarder le HTML en cas d'erreur de parsing (`1` ou `0`). | Non |
+| `HTML_SNAPSHOT_PATH` | Chemin de sauvegarde des snapshots HTML. | Non |
+| `TELEGRAM_TEST_PING` | Envoi un ping de test chaque minute (`1` ou `0`). | Non |
+
+### 🍪 Récupération du Cookie SimpleMMO
+1. Connectez-vous à [SimpleMMO](https://web.simple-mmo.com) sur votre navigateur.
+2. Ouvrez les outils de développement (F12) > Onglet **Application** > **Cookies**.
+3. Sélectionnez `https://web.simple-mmo.com`.
+4. Copiez les valeurs de `laravel_session` et `XSRF-TOKEN`.
+5. Formatez la variable `COOKIE` dans votre fichier `.env` comme ceci :
+   ```bash
+   COOKIE="laravel_session=<VOTRE_TOKEN>; XSRF-TOKEN=<VOTRE_TOKEN>"
+   ```
+
+### 🤖 Configuration Telegram (Optionnel)
+1. Créez un bot via [@BotFather](https://t.me/BotFather) sur Telegram pour obtenir le `TELEGRAM_BOT_TOKEN`.
+2. Envoyez un message "Hello" à votre nouveau bot (pour initialiser la conversation).
+3. Récupérez votre `chat_id` en visitant cette URL : `https://api.telegram.org/bot<VOTRE_TOKEN>/getUpdates`
+4. Cherchez l'objet `"chat": { "id": 123456789 }` dans la réponse JSON.
+5. Renseignez cet ID dans `TELEGRAM_CHAT_ID`.
+
+## 🚀 Installation & Démarrage
+
+Lancez le conteneur avec Docker Compose :
+
 ```bash
 docker compose up -d
-# then open http://127.0.0.1:8000/
-# logs: docker compose logs -f
 ```
-Modifiez l'ip dans le docker-compose si vous voulez pouvoir accéder au site depuis un autre naviguateur du réseau et si vous voulez changer le port comme 80 ou autre
+
+- **Accès au Dashboard :** [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+- **Voir les logs :** `docker compose logs -f`
+
+> **Note :** Pour modifier le port ou autoriser l'accès depuis le réseau, modifiez le fichier `docker-compose.yml`.
