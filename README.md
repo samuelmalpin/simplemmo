@@ -10,15 +10,15 @@ FastAPI service that scrapes the SimpleMMO world-boss page, renders a small dash
 - [.env.example](.env.example) : template to copy to `.env`.
 - (Optionally delete or cleanse `lancement-docker.txt` before pushing; it currently contains real-looking tokens.)
 
-## Prerequisites
-- Docker + Docker Compose v2.
-- A SimpleMMO session cookie for world-boss access (`COOKIE`).
+## Pré requis
+- Docker + Docker Compose
+- Une session SimpleMMO avec cookie pour la connexion et récup des stats des world-boss (`COOKIE`).
 - (Optional) Telegram bot token + chat id for notifications.
 
 ## Configuration (.env)
-Copy `.env.example` to `.env` and fill:
-- `COOKIE` (required): your SimpleMMO session cookie.
-- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` (optional): enable Telegram alerts.
+- Remplir `.env`:
+- `COOKIE` (obligatoire): SimpleMMO session cookie.
+- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` (optionel): Pour notiff telegram.
 - `LOG_LEVEL` (default INFO): logging level.
 - `DUMP_HTML_ON_FAILURE` (1/0): save HTML when parsing fails.
 - `HTML_SNAPSHOT_PATH`: where to dump snapshots.
@@ -40,4 +40,4 @@ docker compose up -d
 # then open http://127.0.0.1:8000/
 # logs: docker compose logs -f
 ```
-Modifiez l'ip si vous voulez pouvoir accéder au site depuis un autre naviguateur du réseau
+Modifiez l'ip dans le docker-compose si vous voulez pouvoir accéder au site depuis un autre naviguateur du réseau et si vous voulez changer le port comme 80 ou autre
