@@ -25,7 +25,7 @@ Service FastAPI qui surveille la page des "World Boss" de SimpleMMO, affiche un 
 | `COOKIE` | Cookie de session SimpleMMO (voir instructions ci-dessous). | **Oui** |
 | `TELEGRAM_BOT_TOKEN` | Token de votre bot Telegram. | Non |
 | `TELEGRAM_CHAT_ID` | ID du chat pour recevoir les alertes. | Non |
-| `LOG_LEVEL` | Niveau de log (défaut : `INFO`). | Non |
+| `LOG_LEVEL` | Niveau de log (défaut : `INFO` possibilité de mettre en `debug`). | Non |
 | `DUMP_HTML_ON_FAILURE` | Sauvegarder le HTML en cas d'erreur de parsing (`1` ou `0`). | Non |
 | `HTML_SNAPSHOT_PATH` | Chemin de sauvegarde des snapshots HTML. | Non |
 | `TELEGRAM_TEST_PING` | Envoi un ping de test chaque minute (`1` ou `0`). | Non |
