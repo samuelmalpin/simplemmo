@@ -4,11 +4,11 @@ Service FastAPI qui surveille la page des "World Boss" de SimpleMMO, affiche un 
 
 ## 📂 Structure du projet
 
-- `main.py` : Logique principale (scraping, tâche de fond, alertes Telegram, dashboard web).
+- `main.py` : Situé dans l'image docker, logique principale (scraping, tâche de fond, alertes Telegram, dashboard web).
 - `requirements.txt` : Dépendances Python.
 - `Dockerfile` : Fichier de construction de l'image (serveur uvicorn).
 - `docker-compose.yml` : Orchestration locale, gestion des variables d'environnement et healthcheck.
-- `.env.example` : Modèle de fichier de configuration à copier en `.env`.
+- `.env` : Fichier de configuration à remplir.
 
 ## 🛠️ Prérequis
 
@@ -18,11 +18,7 @@ Service FastAPI qui surveille la page des "World Boss" de SimpleMMO, affiche un 
 
 ## ⚙️ Configuration
 
-1. Copiez le fichier d'exemple :
-   ```bash
-   cp .env.example .env
-   ```
-2. Remplissez le fichier `.env` avec les informations suivantes :
+1. Remplissez le fichier `.env` avec les informations suivantes :
 
 | Variable | Description | Requis |
 | :--- | :--- | :--- |
