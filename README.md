@@ -34,7 +34,7 @@ Service FastAPI qui surveille la page des "World Boss" de SimpleMMO, affiche un 
 1. Connectez-vous à [SimpleMMO](https://web.simple-mmo.com) sur votre navigateur.
 2. Ouvrez les outils de développement (F12) > Onglet **Application** > **Cookies**.
 3. Sélectionnez `https://web.simple-mmo.com`.
-4. Copiez les valeurs de `laravel_session` et `XSRF-TOKEN`.
+4. Copiez les valeurs de `laravelsession` et `XSRF-TOKEN`.
 5. Formatez la variable `COOKIE` dans votre fichier `.env` comme ceci :
    ```bash
    COOKIE="laravel_session=<VOTRE_TOKEN>; XSRF-TOKEN=<VOTRE_TOKEN>"
