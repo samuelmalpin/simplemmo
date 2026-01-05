@@ -59,3 +59,4 @@ docker compose up -d
 - **Voir les logs :** `docker compose logs -f`
 
 > **Note :** Pour modifier le port ou autoriser l'accès depuis le réseau, modifiez le fichier `docker-compose.yml`.
+> **Note :** Pour modifier le temps entre les utilisation de points de quête modifier le temps a la ligne 402 "page.wait_for_timeout(299000)" mettez le temps en ms.
