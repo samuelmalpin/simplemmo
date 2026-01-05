@@ -37,7 +37,7 @@ Service FastAPI qui surveille la page des "World Boss" de SimpleMMO, affiche un 
 4. Copiez les valeurs de `laravelsession` et `XSRF-TOKEN`.
 5. Formatez la variable `COOKIE` dans votre fichier `.env` comme ceci :
    ```bash
-   COOKIE="laravel_session=<VOTRE_TOKEN>; XSRF-TOKEN=<VOTRE_TOKEN>"
+   COOKIE="laravelsession=<VOTRE_TOKEN>; XSRF-TOKEN=<VOTRE_TOKEN>"
    ```
 
 ### 🤖 Configuration Telegram (Optionnel)
